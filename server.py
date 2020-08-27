@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from flask import Flask, Response,request, send_from_directory, render_template
 import requests
 
