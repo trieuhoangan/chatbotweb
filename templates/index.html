@@ -81,11 +81,14 @@
                     console.log("clicked");
                     val_me = $("input").val()
                     var response = ""
+
                     url = "http://112.137.129.135:3000/get"
+
                     data_ = '{"text":"'+val_me+'"}'
                     if(val_me!==""){
                         $("input").val("")
                         insertChat("me", val_me, 0);
+
                         // $.post(url,data_, function(data,status,xhr){
                         //     console.log(JSON.parse(data))
                         //     parsed_data = JSON.parse(data)

@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, Response,request, send_from_directory, render_template
+from flask_cors import CORS, cross_origin
 import requests
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__,static_url_path='/static')
+
 app.config.from_object(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
+
 utter_intent = ['greeting','end_conversation','ask_point','ask_faculty']
 utter_response = ['chào bạn, bạn muốn hỏi gì về trường đại học công nghệ','tạm biệt','25','cntt']
 response_intent = ['ask_information']
+
 @app.route('/')
 @cross_origin()
 def root():
