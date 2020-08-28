@@ -81,18 +81,30 @@
                     console.log("clicked");
                     val_me = $("input").val()
                     var response = ""
-                    url = "http://localhost:3000/get_response"
+                    url = "http://112.137.129.135:3000/get_response"
                     data_ = '{"text":"'+val_me+'"}'
                     if(val_me!==""){
                         $("input").val("")
                         insertChat("me", val_me, 0);
-                        $.post(url,data_, function(data,status,xhr){
-                            console.log(JSON.parse(data))
-                            parsed_data = JSON.parse(data)
-                            // response=parsed_data.response_selector.default.response.name
-                            response=parsed_data.text
-                            insertChat("you",response , 100);
-                        },"text");
+                        $.ajax({url:url,
+				data:data_,
+				type:'POST',
+				xhrFields: {
+					withCredentials: true
+					    },
+				crossDomain: true,
+				headers:{
+					"accept": "application/json",
+					"Access-Control-Allow-Origin":"*"
+	                        },
+				contentType:'text/plain',
+				success:function(data,status,xhr){
+								                                    console.log(data)
+								                                    parsed_data = data
+								                                    console.log(parsed_data.text)
+								                                    response=parsed_data.text
+								                                    insertChat("you",response , 10);
+								                                }})
                         
                     }
                     
