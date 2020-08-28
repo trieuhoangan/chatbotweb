@@ -2,6 +2,7 @@
 from flask import Flask, Response,request, send_from_directory, render_template
 from flask_cors import CORS, cross_origin
 import requests
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__,static_url_path='/static')
 
@@ -20,7 +21,7 @@ def root():
     message = "chatbotUET"
     return render_template('index.html', message=message)
 @app.route('/get_response',methods=['POST'])
-
+@cross_origin(origin='*',headers=['Content- Type','Authorization'])
 def get_response():
     response_text = request.get_data(as_text=True)
     rasa_url = "http://localhost:5005/model/parse"
@@ -33,6 +34,9 @@ def get_response():
         return {'text':utter_response[utter_intent.index(intent)]}
     else:
         return data['response_selector']['default']['response']['name']
-    
+@app.route('/get',method=['GET'])
+@cross_origin()
+def hello():
+    return "hello"
 if __name__ == "__main__":
     app.run(host= '0.0.0.0',port=3000)
